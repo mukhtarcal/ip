@@ -13,12 +13,12 @@ public class Dennis {
         }
 
         // method to mark task as complete
-        public void mark() {
+        public void markAsDone() {
             this.isDone = true;
         }
 
         // method to unmark task as incomplete
-        public void unmark() {
+        public void unmarkAsNotDone() {
             this.isDone = false;
         }
 
@@ -49,7 +49,7 @@ public class Dennis {
     }
 
     public static void main(String[] args) {
-        Task[] arrayList = new Task[100];
+        Task[] taskList = new Task[100];
         int index = 0;
         String line;
         Scanner in = new Scanner(System.in);
@@ -66,24 +66,25 @@ public class Dennis {
 
             // when prompted for the list, display the clean String list using the method arrayToString
             if (line.equals("list")) {
-                String stringList = arrayToString(arrayList);
+                String stringList = arrayToString(taskList);
                 System.out.println("____________________________________________________________\n"
                         + stringList + "____________________________________________________________\n");
             }
             // if told to mark the task, mark the task at the given index as complete
             else if (words[0].equals("mark")) {
                 int taskIndex = Integer.valueOf(words[1]) - 1;
-                arrayList[taskIndex].mark();
+                taskList[taskIndex].markAsDone();
                 System.out.println("____________________________________________________________\n"
-                        + " Alright, i've marked this task as FINALLY completed:\n   " + arrayList[taskIndex].toString()
+                        + " Alright, i've marked this task as FINALLY completed:\n   " + taskList[taskIndex].toString()
                         + "\n____________________________________________________________\n");
             }
             // if told to unmark the task, unmark the task at the given index as incomplete
             else if (words[0].equals("unmark")) {
                 int taskIndex = Integer.valueOf(words[1]) - 1;
-                arrayList[taskIndex].unmark();
+                taskList[taskIndex].unmarkAsNotDone();
                 System.out.println("____________________________________________________________\n"
-                        + " OK, I've marked this task as not done because you STILL haven't completed it:\n   " + arrayList[taskIndex]
+                        + " OK, I've marked this task as not done because you STILL haven't completed it:\n   "
+                        + taskList[taskIndex]
                         + "\n____________________________________________________________\n");
             }
             // otherwise add the task and echo
@@ -91,7 +92,7 @@ public class Dennis {
                 System.out.println("____________________________________________________________\n"
                         + " " + line
                         + "\n" + "____________________________________________________________\n");
-                arrayList[index] = new Task(line);
+                taskList[index] = new Task(line);
                 index++;
             }
             line = in.nextLine();
