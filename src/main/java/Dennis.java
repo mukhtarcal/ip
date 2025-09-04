@@ -1,106 +1,140 @@
 import java.util.Scanner;
 
 public class Dennis {
-    // object for each task containing the description and whether its complete or not
-    private static class Task {
-        String description;
-        boolean isDone;
-
-        // create task with isDone defaulted to false
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        // method to mark task as complete
-        public void markAsDone() {
-            this.isDone = true;
-        }
-
-        // method to unmark task as incomplete
-        public void unmarkAsNotDone() {
-            this.isDone = false;
-        }
-
-        // method to display task
-        public String toString() {
-            String complete;
-            if (isDone) {
-                complete = "X";
-            }
-            else {
-                complete = " ";
-            }
-            return "[" + complete + "] " + description;
-        }
-    }
-
-
-    // method to create clean String list from Array list
-    private static String arrayToString(Task[] list) {
-        int index;
-        String stringList = "";
-        // for each element in the list, create a numbered list
-        for (index = 0; (index < list.length) && (list[index] != null); index++) {
-            stringList += " " + Integer.toString(index + 1) + ". " + list[index].toString() + "\n";
-        }
-
-        return stringList;
-    }
-
     public static void main(String[] args) {
-        Task[] taskList = new Task[100];
+        final int MAX_NUM_TASKS = 100;
+        final String LOGO =
+                "██████╗  " + "███████╗ " + "███╗   ██╗ " + "███╗   ██╗ " + "██╗ " + "███████╗\n" +
+                "██╔══██╗ " + "██╔════╝ " + "████╗  ██║ " + "████╗  ██║ " + "██║ " + "██╔════╝\n" +
+                "██║  ██║ " + "█████╗   " + "██╔██╗ ██║ " + "██╔██╗ ██║ " + "██║ " + "███████╗\n" +
+                "██║  ██║ " + "███╔══╝  " + "██║╚██╗██║ " + "██║╚██╗██║ " + "██║ " + "╚════██║\n" +
+                "██████╔╝ " + "███████╗ " + "██║ ╚████║ " + "██║ ╚████║ " + "██║ " + "███████║\n" +
+                "╚═════╝  " + "╚══════╝ " + "╚═╝  ╚═══╝ " + "╚═╝  ╚═══╝ " + "╚═╝ " + "╚══════╝\n";
+
+        Task[] taskList = new Task[MAX_NUM_TASKS];
         int index = 0;
-        String line;
-        Scanner in = new Scanner(System.in);
 
         // greeting message
-        System.out.println("____________________________________________________________\n"
-                + " Yooo! I'm Dennis\n" + " What do you want?! :|\n"
-                + "____________________________________________________________\n");
+        printDivider();
+        System.out.println(LOGO);
+        System.out.println(" Yooo! I'm Dennis, PRETTY SICK LOGO HUH?!\n" + " Alright, What do you want? :|\n");
+        printDivider();
 
+        String line;
+        Scanner in = new Scanner(System.in);
         line = in.nextLine();
         // as long as the user does not say bye, take in the user input
         while (!line.equals("bye")) {
             String[] words = line.split(" ");
 
-            // when prompted for the list, display the clean String list using the method arrayToString
-            if (line.equals("list")) {
+            switch (words[0]) {
+            case "list":
                 String stringList = arrayToString(taskList);
-                System.out.println("____________________________________________________________\n"
-                        + stringList + "____________________________________________________________\n");
-            }
-            // if told to mark the task, mark the task at the given index as complete
-            else if (words[0].equals("mark")) {
-                int taskIndex = Integer.valueOf(words[1]) - 1;
-                taskList[taskIndex].markAsDone();
-                System.out.println("____________________________________________________________\n"
-                        + " Alright, i've marked this task as FINALLY completed:\n   " + taskList[taskIndex].toString()
-                        + "\n____________________________________________________________\n");
-            }
-            // if told to unmark the task, unmark the task at the given index as incomplete
-            else if (words[0].equals("unmark")) {
-                int taskIndex = Integer.valueOf(words[1]) - 1;
-                taskList[taskIndex].unmarkAsNotDone();
-                System.out.println("____________________________________________________________\n"
-                        + " OK, I've marked this task as not done because you STILL haven't completed it:\n   "
-                        + taskList[taskIndex]
-                        + "\n____________________________________________________________\n");
-            }
-            // otherwise add the task and echo
-            else {
-                System.out.println("____________________________________________________________\n"
-                        + " " + line
-                        + "\n" + "____________________________________________________________\n");
+
+                printDivider();
+                System.out.println(stringList);
+                printDivider();
+                break;
+
+            case "mark":
+                int taskIndexMark = Integer.parseInt(words[1]) - 1;
+                taskList[taskIndexMark].markAsDone();
+
+                printDivider();
+                System.out.println(" Alright, i've marked this task as FINALLY completed:\n   "
+                        + taskList[taskIndexMark]);
+                printDivider();
+                break;
+
+            case "unmark":
+                int taskIndexUnmark = Integer.parseInt(words[1]) - 1;
+                taskList[taskIndexUnmark].unmarkAsNotDone();
+
+                printDivider();
+                System.out.println(" OK, I've marked this task as not done because you STILL haven't completed it:\n   "
+                        + taskList[taskIndexUnmark]);
+                printDivider();
+                break;
+
+            case "todo":
+                String todoDescription = line.substring(line.indexOf(" ") + 1).trim();
+
+                taskList[index] = new Todo(todoDescription);
+
+                printDivider();
+                System.out.println("Ok, I added this TODO, make sure you actually do it!\n");
+                System.out.println(" " + taskList[index]);
+                printDivider();
+
+                index++;
+                break;
+
+            case "deadline":
+                String[] deadlineParts = line.split("/by", 2);
+                String deadlineDescription = deadlineParts[0].substring("deadline".length()).trim();
+                String by = deadlineParts[1].trim();
+
+                taskList[index] = new Deadline(deadlineDescription, by);
+
+                printDivider();
+                System.out.println("Ok, I added this deadline, make sure you actually do it BY THE DEADLINE!\n");
+                System.out.println(" " + taskList[index]);
+                printDivider();
+
+                index++;
+                break;
+
+            case "event":
+                String[] eventParts = line.split("/from", 2);
+                String eventDescription = eventParts[0].substring("event".length()).trim();
+                String[] timeParts = eventParts[1].split("/to", 2);
+                String from = timeParts[0].trim();
+                String to = timeParts[1].trim();
+
+                taskList[index] = new Event(eventDescription, from, to);
+
+                printDivider();
+                System.out.println("Ok, I added this even, make sure you actually show up ON TIME!\n");
+                System.out.println(" " + taskList[index]);
+                printDivider();
+
+                index++;
+                break;
+
+            default:
+                // if the first word is not a known command, treat it as a new task
+                printDivider();
+                System.out.println(" " + line);
+                printDivider();
+
                 taskList[index] = new Task(line);
                 index++;
+                break;
             }
+
             line = in.nextLine();
         }
 
         // once recieved "bye", output farewell message
-        System.out.println("____________________________________________________________\n"
-                + " Bye. Thank god! I was wondering when you'd finish!\n"
-                + "____________________________________________________________\n");
+        printDivider();
+        System.out.println(" Thank god! I was wondering when you'd finish! Farewell from the one and only: \n");
+        System.out.println(LOGO);
+        printDivider();
+    }
+
+    // cosmetic method for printing divider between outputs
+    private static void printDivider() {
+        System.out.println("____________________________________________________________\n");
+    }
+
+    // method to create clean String list from Array list
+    private static String arrayToString(Task[] list) {
+        String stringList = "";
+        // for each element in the list, create a numbered list
+        for (int index = 0; (index < list.length) && (list[index] != null); index++) {
+            stringList += " " + Integer.toString(index + 1) + ". " + list[index].toString() + "\n";
+        }
+
+        return stringList;
     }
 }
