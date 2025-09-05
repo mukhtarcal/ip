@@ -29,10 +29,8 @@ public class Dennis {
 
             switch (words[0]) {
             case "list":
-                String stringList = arrayToString(taskList);
-
                 printDivider();
-                System.out.println(stringList);
+                printTaskList(taskList);
                 printDivider();
                 break;
 
@@ -94,7 +92,7 @@ public class Dennis {
                 taskList[index] = new Event(eventDescription, from, to);
 
                 printDivider();
-                System.out.println("Ok, I added this even, make sure you actually show up ON TIME!\n");
+                System.out.println("Ok, I added this event, make sure you actually show up ON TIME!\n");
                 System.out.println(" " + taskList[index]);
                 printDivider();
 
@@ -117,7 +115,7 @@ public class Dennis {
 
         // once recieved "bye", output farewell message
         printDivider();
-        System.out.println(" Thank god! I was wondering when you'd finish! Farewell from the one and only: \n");
+        System.out.println(" Thank god! I was wondering when you'd finish! Farewell from the one and only:\n");
         System.out.println(LOGO);
         printDivider();
     }
@@ -127,14 +125,14 @@ public class Dennis {
         System.out.println("____________________________________________________________\n");
     }
 
-    // method to create clean String list from Array list
-    private static String arrayToString(Task[] list) {
+    // method to print clean String list from Array list
+    private static void printTaskList(Task[] list) {
         String stringList = "";
         // for each element in the list, create a numbered list
         for (int index = 0; (index < list.length) && (list[index] != null); index++) {
             stringList += " " + Integer.toString(index + 1) + ". " + list[index].toString() + "\n";
         }
 
-        return stringList;
+        System.out.println(stringList);
     }
 }
