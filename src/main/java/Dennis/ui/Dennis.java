@@ -1,4 +1,7 @@
+package Dennis.ui;
+
 import java.util.Scanner;
+import Dennis.task.*;
 
 public class Dennis {
     public static void main(String[] args) {
