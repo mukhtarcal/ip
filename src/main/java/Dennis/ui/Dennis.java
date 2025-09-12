@@ -289,6 +289,7 @@ public class Dennis {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(createStringTaskList(list));
+            fw.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
@@ -313,9 +314,22 @@ public class Dennis {
     // method to return clean String list from Array list
     private static String createStringTaskList(ArrayList<Task> list) {
         String stringList = "";
-        // for each element in the list, create a numbered list
-        for (int index = 0; (index < list.size()) && (list.get(index) != null); index++) {
-            stringList += " " + Integer.toString(index + 1) + ". " + list.get(index).toString() + "\n";
+
+        for (int index = 0; index < list.size(); index++) {
+            Task task = list.get(index);
+            String taskLine = "";
+
+            if (task instanceof Todo) {
+                taskLine = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+            } else if (task instanceof Deadline) {
+                Deadline d = (Deadline) task;
+                taskLine = "D | " + (d.isDone() ? "1" : "0") + " | " + d.getDescription() + " | " + d.getBy();
+            } else if (task instanceof Event) {
+                Event e = (Event) task;
+                taskLine = "E | " + (e.isDone() ? "1" : "0") + " | " + e.getDescription() + " | " + e.getFrom() + " | " + e.getTo();
+            }
+
+            stringList += taskLine + "\n";
         }
 
         return stringList;

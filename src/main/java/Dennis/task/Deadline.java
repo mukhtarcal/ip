@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.type = "D";
     }
 
+    public String getBy() {
+        return this.by;
+    }
+
     @Override
     public String toString() {
         return "[" + type + "]" + "[" + (isDone ? "X" : " ") + "] " + description + " (by: " + by + ")";

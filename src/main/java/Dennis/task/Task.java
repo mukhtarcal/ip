@@ -11,6 +11,16 @@ public class Task {
         this.isDone = false;
     }
 
+    // method to return description
+    public String getDescription() {
+        return this.description;
+    }
+
+    // method to return isDone
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     // method to mark task as complete
     public void markAsDone() {
         this.isDone = true;
