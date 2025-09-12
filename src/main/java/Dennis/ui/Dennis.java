@@ -1,10 +1,15 @@
 package Dennis.ui;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import Dennis.task.*;
 
 public class Dennis {
+    private static final String DATA_DIR = "./data";
+    private static final String DATA_FILE = DATA_DIR + "/dennis.txt";
     public static void main(String[] args) {
         final int MAX_NUM_TASKS = 100;
         final String LOGO =
@@ -15,6 +20,7 @@ public class Dennis {
                 "██████╔╝ " + "███████╗ " + "██║ ╚████║ " + "██║ ╚████║ " + "██║ " + "███████║\n" +
                 "╚═════╝  " + "╚══════╝ " + "╚═╝  ╚═══╝ " + "╚═╝  ╚═══╝ " + "╚═╝ " + "╚══════╝\n";
 
+        ensureDataDirExists();
         ArrayList<Task> taskList = new ArrayList<>();
 
         // greeting message
@@ -46,6 +52,8 @@ public class Dennis {
                     System.out.println(" Alright, i've marked this task as FINALLY completed:\n   "
                             + taskList.get(taskIndexMark));
                     printDivider();
+
+                    saveTasks(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     printDivider();
                     System.out.println(" Come on! You need to give me a valid task to mark! The form of the command is:\n" +
@@ -79,6 +87,8 @@ public class Dennis {
                     System.out.println(" OK, I've marked this task as not done because you STILL haven't completed it:\n   "
                             + taskList.get(taskIndexUnmark));
                     printDivider();
+
+                    saveTasks(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     printDivider();
                     System.out.println(" Come on! You need to give me a valid task to unmark! The form of the command is:\n" +
@@ -122,6 +132,7 @@ public class Dennis {
                 System.out.println(" " + taskList.get(taskList.size() - 1));
                 printDivider();
 
+                saveTasks(taskList);
                 break;
 
             case "deadline":
@@ -153,6 +164,7 @@ public class Dennis {
                 System.out.println(" " + taskList.get(taskList.size() - 1));
                 printDivider();
 
+                saveTasks(taskList);
                 break;
 
             case "event":
@@ -236,6 +248,8 @@ public class Dennis {
                             " {" + line + "}" + " is not a valid command!\n");
                     printDivider();
                 }
+
+                saveTasks(taskList);
                 break;
 
             default:
@@ -257,6 +271,27 @@ public class Dennis {
         System.out.println(" Thank god! I was wondering when you'd finish! Farewell from the one and only:\n");
         System.out.println(LOGO);
         printDivider();
+
+        saveTasks(taskList);
+    }
+
+    // make sure the data folder exists, if it does not, create it
+    private static void ensureDataDirExists() {
+        File dir = new File(DATA_DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
+
+    // create dennis.txt file in data folder with all the tasks
+    private static void saveTasks(ArrayList<Task> list) {
+        File filePath = new File(DATA_FILE);
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(createStringTaskList(list));
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
     }
 
     // cosmetic method for printing divider between outputs
@@ -273,5 +308,16 @@ public class Dennis {
         }
 
         System.out.println(stringList);
+    }
+
+    // method to return clean String list from Array list
+    private static String createStringTaskList(ArrayList<Task> list) {
+        String stringList = "";
+        // for each element in the list, create a numbered list
+        for (int index = 0; (index < list.size()) && (list.get(index) != null); index++) {
+            stringList += " " + Integer.toString(index + 1) + ". " + list.get(index).toString() + "\n";
+        }
+
+        return stringList;
     }
 }
