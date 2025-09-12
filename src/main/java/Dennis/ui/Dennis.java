@@ -1,6 +1,7 @@
 package Dennis.ui;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import Dennis.task.*;
 
 public class Dennis {
@@ -14,8 +15,7 @@ public class Dennis {
                 "██████╔╝ " + "███████╗ " + "██║ ╚████║ " + "██║ ╚████║ " + "██║ " + "███████║\n" +
                 "╚═════╝  " + "╚══════╝ " + "╚═╝  ╚═══╝ " + "╚═╝  ╚═══╝ " + "╚═╝ " + "╚══════╝\n";
 
-        Task[] taskList = new Task[MAX_NUM_TASKS];
-        int index = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
 
         // greeting message
         printDivider();
@@ -40,11 +40,11 @@ public class Dennis {
             case "mark":
                 try {
                     int taskIndexMark = Integer.parseInt(words[1]) - 1;
-                    taskList[taskIndexMark].markAsDone();
+                    taskList.get(taskIndexMark).markAsDone();
 
                     printDivider();
                     System.out.println(" Alright, i've marked this task as FINALLY completed:\n   "
-                            + taskList[taskIndexMark]);
+                            + taskList.get(taskIndexMark));
                     printDivider();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     printDivider();
@@ -73,11 +73,11 @@ public class Dennis {
             case "unmark":
                 try {
                     int taskIndexUnmark = Integer.parseInt(words[1]) - 1;
-                    taskList[taskIndexUnmark].unmarkAsNotDone();
+                    taskList.get(taskIndexUnmark).unmarkAsNotDone();
 
                     printDivider();
                     System.out.println(" OK, I've marked this task as not done because you STILL haven't completed it:\n   "
-                            + taskList[taskIndexUnmark]);
+                            + taskList.get(taskIndexUnmark));
                     printDivider();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     printDivider();
@@ -114,14 +114,14 @@ public class Dennis {
 
                 String todoDescription = line.substring(line.indexOf(" ") + 1).trim();
 
-                taskList[index] = new Todo(todoDescription);
+                Todo newTodo = new Todo(todoDescription);
+                taskList.add(newTodo);
 
                 printDivider();
                 System.out.println(" Ok, I added this TODO, make sure you actually do it!\n");
-                System.out.println(" " + taskList[index]);
+                System.out.println(" " + taskList.get(taskList.size() - 1));
                 printDivider();
 
-                index++;
                 break;
 
             case "deadline":
@@ -145,14 +145,14 @@ public class Dennis {
                 String deadlineDescription = deadlineParts[0].substring("deadline".length()).trim();
                 String by = deadlineParts[1].trim();
 
-                taskList[index] = new Deadline(deadlineDescription, by);
+                Deadline newDeadline = new Deadline(deadlineDescription, by);
+                taskList.add(newDeadline);
 
                 printDivider();
                 System.out.println(" Ok, I added this deadline, make sure you actually do it BY THE DEADLINE!\n");
-                System.out.println(" " + taskList[index]);
+                System.out.println(" " + taskList.get(taskList.size() - 1));
                 printDivider();
 
-                index++;
                 break;
 
             case "event":
@@ -194,14 +194,48 @@ public class Dennis {
                 String from = timeParts[0].trim();
                 String to = timeParts[1].trim();
 
-                taskList[index] = new Event(eventDescription, from, to);
+                Event newEvent = new Event(eventDescription, from, to);
+                taskList.add(newEvent);
 
                 printDivider();
                 System.out.println(" Ok, I added this event, make sure you actually show up ON TIME!\n");
-                System.out.println(" " + taskList[index]);
+                System.out.println(" " + taskList.get(taskList.size() - 1));
                 printDivider();
 
-                index++;
+                break;
+
+            case "delete":
+                try {
+                    int taskIndexDelete = Integer.parseInt(words[1]) - 1;
+                    Task deletedTask = taskList.get(taskIndexDelete);
+                    taskList.remove(taskIndexDelete);
+
+                    printDivider();
+                    System.out.println(" OK, I've deleted this task, I hope you didn't just delete it because you don't feel like doing it!:\n   "
+                            + deletedTask);
+                    printDivider();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    printDivider();
+                    System.out.println(" Come on! You need to give me a valid task to delete! The form of the command is:\n" +
+                            " delete #\n" +
+                            " Where # is a valid task number\n" +
+                            " {" + line + "}" + " is not a valid command!");
+                    printDivider();
+                } catch (NumberFormatException e) {
+                    printDivider();
+                    System.out.println(" Come on! The task number needs to be a valid digit! Follow this format:\n" +
+                            " delete #\n" +
+                            " Where # is a valid task number\n" +
+                            " {" + line + "}" + " is not a valid command!");
+                    printDivider();
+                } catch (NullPointerException e) {
+                    printDivider();
+                    System.out.println(" Come on! You need to give me a valid task to delete! The form of the command is:\n" +
+                            " delete #\n" +
+                            " Where # is a valid task number\n" +
+                            " {" + line + "}" + " is not a valid command!\n");
+                    printDivider();
+                }
                 break;
 
             default:
@@ -231,11 +265,11 @@ public class Dennis {
     }
 
     // method to print clean String list from Array list
-    private static void printTaskList(Task[] list) {
+    private static void printTaskList(ArrayList<Task> list) {
         String stringList = "";
         // for each element in the list, create a numbered list
-        for (int index = 0; (index < list.length) && (list[index] != null); index++) {
-            stringList += " " + Integer.toString(index + 1) + ". " + list[index].toString() + "\n";
+        for (int index = 0; (index < list.size()) && (list.get(index) != null); index++) {
+            stringList += " " + Integer.toString(index + 1) + ". " + list.get(index).toString() + "\n";
         }
 
         System.out.println(stringList);
