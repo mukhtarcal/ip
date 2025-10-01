@@ -1,5 +1,6 @@
 package Dennis.ui;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -22,6 +23,7 @@ public class Dennis {
 
         ensureDataDirExists();
         ArrayList<Task> taskList = new ArrayList<>();
+        loadInData(taskList);
 
         // greeting message
         printDivider();
@@ -281,6 +283,53 @@ public class Dennis {
         if (!dir.exists()) {
             dir.mkdirs();
         }
+    }
+
+    // load in data from ./data/dennis.txt into taskList if data exists
+    private static void loadInData(ArrayList<Task> taskList) {
+        File filePath = new File(DATA_FILE);
+
+        // if there's nothing to load yet
+        if (!filePath.exists()) {
+            return;
+        }
+
+        try (Scanner s = new Scanner(filePath)) {
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                String[] parts = line.split(" \\| ");
+
+                String type = parts[0];
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                Task task = null;
+
+                switch (type) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String by = parts[3].trim();
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    String start = parts[3].trim();
+                    String end = parts[4].trim();
+                    task = new Event(description, start, end);
+                    break;
+                }
+
+                if (task != null && isDone) {
+                    task.markAsDone();
+                }
+
+                taskList.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+
     }
 
     // create dennis.txt file in data folder with all the tasks
