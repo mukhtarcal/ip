@@ -58,7 +58,7 @@ public class Parser {
             return new AddEventCommand(eventDescription, from, to);
         case "delete":
             try {
-                Integer indexToDelete = Integer.valueOf(parts[1]);
+                Integer indexToDelete = Integer.parseInt(parts[1]) - 1;
                 return new DeleteCommand(indexToDelete);
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                 String format = " delete #\n" + " Where # is a valid task number\n";
