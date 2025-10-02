@@ -54,6 +54,28 @@ public class Ui {
         showDivider();
     }
 
+    public void showMatchingTaskList(ArrayList<Task> tasks, String toFind) {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(toFind)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            showDivider();
+            System.out.println(" No tasks containing {" + toFind + "} were found!");
+            showDivider();
+        } else {
+            showDivider();
+            System.out.println(" Here are the results containing {" + toFind + "}");
+            showTaskList(matchingTasks);
+        }
+
+
+    }
+
     public void showTaskAdded(Task task) {
         showDivider();
         System.out.println(" Ok, I added this task, make sure you actually do it!\n");

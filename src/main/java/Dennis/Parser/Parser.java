@@ -1,16 +1,6 @@
 package Dennis.Parser;
 
-import Dennis.Command.Command;
-import Dennis.Command.ListCommand;
-import Dennis.Command.ExitCommand;
-import Dennis.Command.AddDeadlineCommand;
-import Dennis.Command.AddEventCommand;
-import Dennis.Command.AddTodoCommand;
-import Dennis.Command.MarkCommand;
-import Dennis.Command.UnmarkCommand;
-import Dennis.Command.DeleteCommand;
-import Dennis.Command.InvalidFormatCommand;
-import Dennis.Command.InvalidEmptyCommand;
+import Dennis.Command.*;
 
 public class Parser {
     public static Command parse(String fullCommand) {
@@ -79,6 +69,14 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                 String format = " unmark #\n" + " Where # is a valid task number\n";
                 return new InvalidFormatCommand(fullCommand, format);
+            }
+        case "find":
+            // if there are no words after "find", print error message
+            if (parts.length == 1) {
+                return new InvalidEmptyCommand(commandWord);
+            } else {
+                String toFind = fullCommand.substring(fullCommand.indexOf(" ") + 1).trim();
+                return new FindCommand(toFind);
             }
         case "bye":
             return new ExitCommand();
