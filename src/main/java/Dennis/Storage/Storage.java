@@ -17,6 +17,23 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
+        ensureFileExists();
+    }
+
+    // make sure storage file exists, if it doesn't then create it
+    private void ensureFileExists() {
+        try {
+            File file = new File(filePath);
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs(); // create directories if missing
+            }
+            if (!file.exists()) {
+                file.createNewFile(); // create the file if it doesn't exist
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error initializing storage file: " + e.getMessage(), e);
+        }
     }
 
     public ArrayList<Task> load() {

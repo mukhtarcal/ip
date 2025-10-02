@@ -101,11 +101,4 @@ public class Ui {
         System.out.println(" Error: " + message);
         showDivider();
     }
-
-    public void showLoadingError() {
-        showDivider();
-        System.out.println(" Error loading data file! Starting with an empty task list.");
-        showDivider();
-    }
-
 }

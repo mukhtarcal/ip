@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
             return;
         }
 
-        tasks.get(index).markAsDone();
+        tasks.mark(index);
         Task markedTask = tasks.get(index);
         ui.showTaskMarked(markedTask);
         storage.save(tasks.getAll());
