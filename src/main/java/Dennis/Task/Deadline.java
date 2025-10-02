@@ -1,4 +1,4 @@
-package Dennis.task;
+package Dennis.Task;
 
 public class Deadline extends Task {
     String by;
@@ -12,6 +12,13 @@ public class Deadline extends Task {
     public String getBy() {
         return this.by;
     }
+
+    @Override
+    public String getType() { return this.type; }
+
+    @Override
+    public String toSaveFormat() { return super.toSaveFormat() + " | " + getBy(); }
+
 
     @Override
     public String toString() {

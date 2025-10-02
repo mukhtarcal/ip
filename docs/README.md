@@ -1,4 +1,4 @@
-# Dennis.ui.Dennis User Guide
+# Dennis.Dennis User Guide
 
 // Update the title above to match the actual product name
 

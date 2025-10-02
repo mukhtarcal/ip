@@ -1,4 +1,4 @@
-package Dennis.task;
+package Dennis.Task;
 
 public class Event extends Task {
     String from;
@@ -18,6 +18,12 @@ public class Event extends Task {
     public String getTo() {
         return this.to;
     }
+
+    @Override
+    public String getType() { return this.type; }
+
+    @Override
+    public String toSaveFormat() { return super.toSaveFormat() + " | " + getFrom() + " | " + getTo(); }
 
     @Override
     public String toString() {

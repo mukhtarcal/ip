@@ -1,9 +1,9 @@
-package Dennis.task;
+package Dennis.Task;
 
-public class Task {
+public abstract class Task {
     String description;
     boolean isDone;
-    String type = " ";
+    String type;
 
     // create task with isDone defaulted to false
     public Task(String description) {
@@ -30,6 +30,12 @@ public class Task {
     public void unmarkAsNotDone() {
         this.isDone = false;
     }
+
+    // method to get type of task
+    public abstract String getType();
+
+    // method to get task in save format
+    public String toSaveFormat() { return getType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription(); }
 
     // method to display task
     public String toString() {

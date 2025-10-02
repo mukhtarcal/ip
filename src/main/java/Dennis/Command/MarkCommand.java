@@ -1,0 +1,29 @@
+package Dennis.Command;
+
+import Dennis.Storage.Storage;
+import Dennis.Task.Task;
+import Dennis.TaskList.TaskList;
+import Dennis.Ui.Ui;
+
+public class MarkCommand extends Command {
+    private Integer index;
+
+    public MarkCommand(Integer index) {
+        this.index = index;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        // check that index is in bounds
+        if (index < 0 || index >= tasks.size()) {
+            String format = " mark #\n" + " Where # is a valid task number\n";
+            ui.showErrorInvalidCommand("mark " + (index+1), format);
+            return;
+        }
+
+        tasks.get(index).markAsDone();
+        Task markedTask = tasks.get(index);
+        ui.showTaskMarked(markedTask);
+        storage.save(tasks.getAll());
+    }
+}

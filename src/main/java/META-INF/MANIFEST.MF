@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: Dennis.ui.Dennis
+Main-Class: Dennis.Dennis
 
