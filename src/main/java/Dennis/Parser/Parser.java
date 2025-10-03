@@ -3,6 +3,13 @@ package Dennis.Parser;
 import Dennis.Command.*;
 
 public class Parser {
+    /**
+     * Parses the given user input string and returns the corresponding Command.
+     *
+     * @param fullCommand The full user input string entered in the chatbot.
+     * @return A Command object representing the parsed input.
+     *         Returns an error command if the input is invalid or incomplete.
+     */
     public static Command parse(String fullCommand) {
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
