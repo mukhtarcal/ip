@@ -16,10 +16,16 @@ public class Ui {
 
     private final Scanner in = new Scanner(System.in);
 
+    /**
+     * Prints a divider which is used to make readability easier for user.
+     */
     public void showDivider() {
         System.out.println("____________________________________________________________\n");
     }
 
+    /**
+     * Takes in the users input.
+     */
     public String readCommand() {
         return in.nextLine();
     }
@@ -28,6 +34,9 @@ public class Ui {
         System.out.println(LOGO);
     }
 
+    /**
+     * Shows the welcome message when user first starts up Dennis.
+     */
     public void showWelcome() {
         showDivider();
         showLogo();
@@ -35,6 +44,9 @@ public class Ui {
         showDivider();
     }
 
+    /**
+     * Shows the farewell message when the user ends Dennis.
+     */
     public void showFarewell() {
         showDivider();
         System.out.println(" Thank god! I was wondering when you'd finish! Farewell from the one and only:\n");
@@ -42,6 +54,11 @@ public class Ui {
         showDivider();
     }
 
+    /**
+     * Prints all the tasks readably in the specified tasks list.
+     *
+     * @param tasks An array list of all the tasks.
+     */
     public void showTaskList(ArrayList<Task> tasks) {
         showDivider();
         if (tasks.isEmpty()) {
@@ -54,6 +71,12 @@ public class Ui {
         showDivider();
     }
 
+    /**
+     * Prints all the tasks whose description contains the specific phrase to find.
+     *
+     * @param tasks An array list of all the tasks.
+     * @param toFind The phrase being searched for.
+     */
     public void showMatchingTaskList(ArrayList<Task> tasks, String toFind) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (int i = 0; i < tasks.size(); i++) {
@@ -104,6 +127,12 @@ public class Ui {
         showDivider();
     }
 
+    /**
+     * Prints an error message when an invalid command is given.
+     *
+     * @param line The line inputted by the user.
+     * @param expectedFormat The format Dennis is expecting.
+     */
     public void showErrorInvalidCommand(String line, String expectedFormat) {
         showDivider();
         System.out.println(" Come on! Invalid command!\n" +
@@ -112,12 +141,22 @@ public class Ui {
         showDivider();
     }
 
+    /**
+     * Prints an error message when no description for a task is given.
+     *
+     * @param command The command the user was attempting to use.
+     */
     public void showErrorEmptyDescription(String command) {
         showDivider();
         System.out.println(" OMG your " + command + " obviously can't be empty!\n");
         showDivider();
     }
 
+    /**
+     * Prints a error message with the given message.
+     *
+     * @param message The error to show the user.
+     */
     public void showError(String message) {
         showDivider();
         System.out.println(" Error: " + message);

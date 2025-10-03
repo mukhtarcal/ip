@@ -15,12 +15,23 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the given file path.
+     * Ensures that the storage file and its directories exist.
+     *
+     * @param filePath The path to the file used for saving and loading tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         ensureFileExists();
     }
 
-    // make sure storage file exists, if it doesn't then create it
+    /**
+     * Ensures that the storage file and its parent directories exist.
+     * If they do not, creates them.
+     *
+     * @throws RuntimeException if the file cannot be created.
+     */
     private void ensureFileExists() {
         try {
             File file = new File(filePath);
@@ -36,6 +47,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * Each line is parsed into the appropriate Task subtype (Todo, Deadline, Event).
+     *
+     * @return A list of tasks loaded from the storage file.
+     *         Returns an empty list if the file is empty or malformed.
+     * @throws RuntimeException if the file cannot be read.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<Task>();
         File file = new File(filePath);
@@ -82,6 +101,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the given list of tasks to the storage file.
+     * Each task is written in a serialized format.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws RuntimeException if an error occurs while writing to the file.
+     */
     public void save(ArrayList<Task> tasks) {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
