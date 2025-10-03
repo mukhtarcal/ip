@@ -1,4 +1,4 @@
-package Dennis.Task;
+package dennis.task;
 
 public abstract class Task {
     String description;

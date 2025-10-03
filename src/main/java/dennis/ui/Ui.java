@@ -1,11 +1,11 @@
-package Dennis.Ui;
+package dennis.ui;
 
-import Dennis.Task.Task;
+import dennis.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    final String LOGO =
+    private static final String LOGO =
             "██████╗  " + "███████╗ " + "███╗   ██╗ " + "███╗   ██╗ " + "██╗ " + "███████╗\n" +
             "██╔══██╗ " + "██╔════╝ " + "████╗  ██║ " + "████╗  ██║ " + "██║ " + "██╔════╝\n" +
             "██║  ██║ " + "█████╗   " + "██╔██╗ ██║ " + "██╔██╗ ██║ " + "██║ " + "███████╗\n" +
@@ -24,7 +24,9 @@ public class Ui {
     }
 
     /**
-     * Takes in the users input.
+     * Reads a line of input from the user.
+     *
+     * @return The user's input as a string.
      */
     public String readCommand() {
         return in.nextLine();
@@ -55,9 +57,9 @@ public class Ui {
     }
 
     /**
-     * Prints all the tasks readably in the specified tasks list.
+     * Displays all tasks in a formatted list.
      *
-     * @param tasks An array list of all the tasks.
+     * @param tasks The list of tasks to display.
      */
     public void showTaskList(ArrayList<Task> tasks) {
         showDivider();
@@ -161,5 +163,9 @@ public class Ui {
         showDivider();
         System.out.println(" Error: " + message);
         showDivider();
+    }
+
+    public void close() {
+        in.close();
     }
 }

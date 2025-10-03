@@ -1,9 +1,9 @@
-package Dennis.Storage;
+package dennis.storage;
 
-import Dennis.Task.Deadline;
-import Dennis.Task.Event;
-import Dennis.Task.Task;
-import Dennis.Task.Todo;
+import dennis.task.Deadline;
+import dennis.task.Event;
+import dennis.task.Task;
+import dennis.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,8 +1,22 @@
-package Dennis.Parser;
+package dennis.parser;
 
-import Dennis.Command.*;
+import dennis.command.AddDeadlineCommand;
+import dennis.command.AddEventCommand;
+import dennis.command.AddTodoCommand;
+import dennis.command.Command;
+import dennis.command.DeleteCommand;
+import dennis.command.ExitCommand;
+import dennis.command.FindCommand;
+import dennis.command.InvalidEmptyCommand;
+import dennis.command.InvalidFormatCommand;
+import dennis.command.ListCommand;
+import dennis.command.MarkCommand;
+import dennis.command.UnmarkCommand;
 
 public class Parser {
+    private static final String DEADLINE_KEY = "/by";
+    private static final String EVENT_FROM_KEY = "/from";
+    private static final String EVENT_TO_KEY = "/to";
     /**
      * Parses the given user input string and returns the corresponding Command.
      *
@@ -29,7 +43,7 @@ public class Parser {
             // if there are no words after "deadline", print error message
             if (parts.length == 1) {
                 return new InvalidEmptyCommand(commandWord);
-            } else if (!fullCommand.contains("/by")) { // if the event doesn't contain "/by", print error message
+            } else if (!fullCommand.contains(DEADLINE_KEY)) { // if the event doesn't contain "/by", print error message
                 String format = " \"deadline deadline_name /by duedate\n";
                 return new InvalidFormatCommand(fullCommand, format);
             }
@@ -47,9 +61,9 @@ public class Parser {
                 return new InvalidFormatCommand(fullCommand, format);
             }
 
-            String[] eventParts = fullCommand.split("/from", 2);
+            String[] eventParts = fullCommand.split(EVENT_FROM_KEY, 2);
             String eventDescription = eventParts[0].substring("event".length()).trim();
-            String[] timeParts = eventParts[1].split("/to", 2);
+            String[] timeParts = eventParts[1].split(EVENT_TO_KEY, 2);
             String from = timeParts[0].trim();
             String to = timeParts[1].trim();
             return new AddEventCommand(eventDescription, from, to);

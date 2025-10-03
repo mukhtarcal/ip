@@ -1,11 +1,8 @@
-package Dennis.Command;
+package dennis.command;
 
-import Dennis.Storage.Storage;
-import Dennis.Task.Task;
-import Dennis.TaskList.TaskList;
-import Dennis.Ui.Ui;
-
-import java.util.ArrayList;
+import dennis.storage.Storage;
+import dennis.taskList.TaskList;
+import dennis.ui.Ui;
 
 public class FindCommand extends Command {
     private String toFind;

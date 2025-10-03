@@ -1,10 +1,10 @@
-package Dennis.Command;
+package dennis.command;
 
-import Dennis.Storage.Storage;
-import Dennis.Task.Task;
-import Dennis.Task.Todo;
-import Dennis.TaskList.TaskList;
-import Dennis.Ui.Ui;
+import dennis.storage.Storage;
+import dennis.task.Task;
+import dennis.task.Todo;
+import dennis.taskList.TaskList;
+import dennis.ui.Ui;
 
 public class AddTodoCommand extends Command {
     String description;

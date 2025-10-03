@@ -1,10 +1,10 @@
-package Dennis.Command;
+package dennis.command;
 
-import Dennis.Storage.Storage;
-import Dennis.Task.Deadline;
-import Dennis.Task.Task;
-import Dennis.TaskList.TaskList;
-import Dennis.Ui.Ui;
+import dennis.storage.Storage;
+import dennis.task.Deadline;
+import dennis.task.Task;
+import dennis.taskList.TaskList;
+import dennis.ui.Ui;
 
 public class AddDeadlineCommand extends Command {
     String description;

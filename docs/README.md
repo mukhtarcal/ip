@@ -1,4 +1,4 @@
-# Dennis
+# dennis
 
 ---
 
@@ -13,11 +13,11 @@
 
 ---
 
-Dennis is a simple **command-line task manager** that helps you keep track of your to-dos, deadlines, and events. 
+dennis is a simple **command-line task manager** that helps you keep track of your to-dos, deadlines, and events. 
 
 It allows you to add, list, search, mark, unmark, and delete tasks—all from your terminal.  
 
-Dennis saves your tasks automatically to a file, so your list is restored every time you run it.
+dennis saves your tasks automatically to a file, so your list is restored every time you run it.
 
 ---
 
@@ -36,16 +36,16 @@ cd ip
 javac -d bin $(find . -name "*.java")
 ```
 
-3. Run Dennis:
+3. Run dennis:
 
 ```bash
-java -cp bin Dennis.Dennis
+java -cp bin dennis.dennis
 ```
 ---
 
 ## Features
 
-Dennis supports three types of tasks:
+dennis supports three types of tasks:
 
 1. **Todo** – a simple task with just a description.
 
@@ -146,7 +146,7 @@ All tasks are saved automatically in a file at: ./data/dennis.txt
 data/dennis.txt
 ```
 
-If the file or directory does not exist, Dennis creates it for you.
+If the file or directory does not exist, dennis creates it for you.
 
 ---
 

@@ -1,7 +1,7 @@
-package Dennis.TaskList;
+package dennis.taskList;
 
 import java.util.ArrayList;
-import Dennis.Task.Task;
+import dennis.task.Task;
 
 public class TaskList {
     private final ArrayList<Task> tasks;

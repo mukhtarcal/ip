@@ -1,8 +1,8 @@
-package Dennis.Command;
+package dennis.command;
 
-import Dennis.TaskList.TaskList;
-import Dennis.Ui.Ui;
-import Dennis.Storage.Storage;
+import dennis.taskList.TaskList;
+import dennis.ui.Ui;
+import dennis.storage.Storage;
 
 public abstract class Command {
     /**

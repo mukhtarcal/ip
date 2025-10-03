@@ -1,8 +1,8 @@
-package Dennis.Command;
+package dennis.command;
 
-import Dennis.Storage.Storage;
-import Dennis.TaskList.TaskList;
-import Dennis.Ui.Ui;
+import dennis.storage.Storage;
+import dennis.taskList.TaskList;
+import dennis.ui.Ui;
 
 public class InvalidEmptyCommand extends Command {
     private String command;

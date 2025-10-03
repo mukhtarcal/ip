@@ -1,11 +1,10 @@
-package Dennis;
+package dennis;
 
-import Dennis.Command.Command;
-import Dennis.Parser.Parser;
-
-import Dennis.Ui.Ui;
-import Dennis.Storage.Storage;
-import Dennis.TaskList.TaskList;
+import dennis.command.Command;
+import dennis.parser.Parser;
+import dennis.ui.Ui;
+import dennis.storage.Storage;
+import dennis.taskList.TaskList;
 
 public class Dennis {
     private static final String DATA_FILE = "./data/dennis.txt";
@@ -18,8 +17,8 @@ public class Dennis {
             ui = new Ui();
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
-        } catch (Exception e) {
-            ui.showError("Something went wrong with setup: " + e.getMessage());
+        } catch (RuntimeException e) {
+            ui.showError("Something went wrong with setup: " + e);
         }
     }
 
@@ -36,7 +35,7 @@ public class Dennis {
         } catch (Exception e) {
             ui.showError("Something went wrong: " + e.getMessage());
         }
-
+        ui.close();
     }
 
     public static void main(String[] args) {
